@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { FileUpload } from './FileUpload';
 import { ConversionProgress } from './ConversionProgress';
 import { ConversionHistory } from './ConversionHistory';
-import { PDFEditor } from './PDFEditor';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -122,7 +121,7 @@ export const DocumentConverter: React.FC = () => {
     setConvertedFile(null);
   };
 
-  const currentType = docTypes[activeTab as keyof typeof docTypes];
+  // const currentType = docTypes[activeTab as keyof typeof docTypes];
 
   return (
     <div className="max-w-4xl mx-auto space-y-8">
@@ -136,10 +135,10 @@ export const DocumentConverter: React.FC = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid w-full grid-cols-3 max-w-2xl mx-auto">
+        <TabsList className="grid w-full grid-cols-2 max-w-2xl mx-auto">
           <TabsTrigger value="pdf-to-doc">PDF to DOC</TabsTrigger>
           <TabsTrigger value="doc-to-pdf">DOC to PDF</TabsTrigger>
-          <TabsTrigger value="pdf-editor">PDF Editor</TabsTrigger>
+          {/* <TabsTrigger value="pdf-editor">PDF Editor</TabsTrigger> */}
         </TabsList>
 
         <TabsContent value="pdf-to-doc" className="space-y-6">
@@ -182,35 +181,7 @@ export const DocumentConverter: React.FC = () => {
           )}
 
           {convertedFile && conversionStatus === 'completed' && (
-            // <Card className="p-6 bg-gradient-card shadow-medium">
-            //   <div className="flex items-center justify-between">
-            //     <div>
-            //       <h3 className="text-lg font-semibold text-foreground mb-1">
-            //         Conversion Complete!
-            //       </h3>
-            //       <p className="text-muted-foreground">{convertedFile.name}</p>
-            //     </div>
-            //     <div className="flex space-x-3">
-            //       <Button
-            //         onClick={() => handleDownload()}
-            //         variant="success"
-            //         size="lg"
-            //       >
-            //         <Download className="w-4 h-4 mr-2" />
-            //         Download
-            //       </Button>
-            //       <Button
-            //         onClick={resetConversion}
-            //         variant="outline"
-            //         size="lg"
-            //       >
-            //         <RefreshCw className="w-4 h-4 mr-2" />
-            //         Convert Another
-            //       </Button>
-            //     </div>
-            //   </div>
-            // </Card>
-
+         
             <Card className="p-6 bg-gradient-card shadow-medium">
   <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
     <div>
@@ -289,34 +260,41 @@ export const DocumentConverter: React.FC = () => {
           )}
 
           {convertedFile && conversionStatus === 'completed' && (
+         
+
             <Card className="p-6 bg-gradient-card shadow-medium">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-lg font-semibold text-foreground mb-1">
-                    Conversion Complete!
-                  </h3>
-                  <p className="text-muted-foreground">{convertedFile.name}</p>
-                </div>
-                <div className="flex space-x-3">
-                  <Button
-                    onClick={() => handleDownload()}
-                    variant="success"
-                    size="lg"
-                  >
-                    <Download className="w-4 h-4 mr-2" />
-                    Download
-                  </Button>
-                  <Button
-                    onClick={resetConversion}
-                    variant="outline"
-                    size="lg"
-                  >
-                    <RefreshCw className="w-4 h-4 mr-2" />
-                    Convert Another
-                  </Button>
-                </div>
-              </div>
-            </Card>
+  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+      <h3 className="text-lg font-semibold text-foreground mb-1">
+        Conversion Complete!
+      </h3>
+      <p className="text-muted-foreground">{convertedFile.name}</p>
+    </div>
+
+    {/* Buttons */}
+    <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+      <Button
+        onClick={() => handleDownload()}
+        variant="success"
+        size="lg"
+        className="w-full sm:w-auto"
+      >
+        <Download className="w-4 h-4 mr-2" />
+        Download
+      </Button>
+      <Button
+        onClick={resetConversion}
+        variant="outline"
+        size="lg"
+        className="w-full sm:w-auto"
+      >
+        <RefreshCw className="w-4 h-4 mr-2" />
+        Convert Another
+      </Button>
+    </div>
+  </div>
+</Card>
+
           )}
 
           <ConversionHistory
@@ -325,9 +303,7 @@ export const DocumentConverter: React.FC = () => {
           />
         </TabsContent>
 
-        <TabsContent value="pdf-editor" className="space-y-6">
-          <PDFEditor />
-        </TabsContent>
+   
       </Tabs>
     </div>
   );
